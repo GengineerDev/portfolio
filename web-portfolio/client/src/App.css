@@ -57,8 +57,19 @@
   cursor: pointer;
 }
 
-.flat-button:active {
+.flat-button:hover {
   background-color: #333; /* dark background color */
   color: #fff; /* light text color */
   transition: 0.2s;
 } 
+
+footer {
+  background-color: var(--darker-color);
+  color: rgb(220, 220, 220);
+  font-size: 1.4rem;
+  padding: 10px;
+}
+
+.right {
+  float: right;
+}

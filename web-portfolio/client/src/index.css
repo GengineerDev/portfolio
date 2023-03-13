@@ -25,3 +25,14 @@ body {
   background-color: #f5f8fc;
 }
 
+p {
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: rgb(176, 176, 176);
+}

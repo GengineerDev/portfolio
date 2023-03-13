@@ -1,6 +1,8 @@
 function MainButton(props){
     return (
-        <button className='flat-button'>{props.children}</button>
+        <button className='flat-button' onClick={() => window.open(props.link, '_blank')}>
+        {props.children}
+        </button>
     )
 }
 

@@ -14,7 +14,7 @@ function Greeting() {
         </div>
         <div class="column space-above">
           <p className='greeting-text'>If you want to read my whole experience in organizations, competitions, and whatnot, download my CV!</p>
-          <MainButton>Download my CV!</MainButton>
+          <MainButton link="https://docs.google.com/document/d/1w-9hkObP0lye9YG0UmeS7klA-HoFkE9I/edit?usp=share_link&ouid=114555168601342208112&rtpof=true&sd=true">See my CV!</MainButton>
         </div>
     </div>
     )
