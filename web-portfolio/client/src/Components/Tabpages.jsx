@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import Card from '../Components/Card'
 function Tabpages() {
     const [activeTab, setActiveTab] = useState('Recent Work')
 
@@ -37,7 +38,17 @@ function Tabpages() {
 
         <div className="tab-content">
             {activeTab === 'Recent Work' && (
-            <p>This is the content for Recent Work tab.</p>
+                <section>
+                    <Card 
+                        url = "https://media-cldnry.s-nbcnews.com/image/upload/newscms/2021_07/2233721/171120-smile-stock-njs-333p.jpg"
+                        alt = "Picture of ALORA"
+                        header = "ALORA"
+                        caption = "ALORA is an offline LMS made using MERN stack, RPi, router, and signal booster."
+                    />
+                
+                </section>
+            
+            
             )}
             {activeTab === 'Organizations' && (
             <p>This is the content for Organizations tab.</p>
