@@ -1,19 +1,28 @@
-import Header from './Components/Header'
-import Greeting from './Components/Greeting'
-import Footer from './Components/Footer'
-import Tabpages from './Components/Tabpages'
+import Header from './components/Header'
+import Greeting from './components/Greeting'
+import Footer from './components/Footer'
+import Tabpages from './components/Tabpages'
+
+import Login from './pages/Login'
+import Admin from './pages/Admin'
+
 import './App.css'
 
-function App() {
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
+function App() {
   return (
-    <>
+    <Router>
       <Header />
-      <Greeting />
-      <Tabpages />     
+      <Routes>
+        <Route path="/" element={<><Greeting /><Tabpages /></>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
       <Footer />
-    </>
+    </Router>
   )
 }
 
 export default App
+
