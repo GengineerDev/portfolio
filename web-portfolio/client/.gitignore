@@ -8,15 +8,15 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-backend\node_modules
 dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# Editor directories and files; remove backend afterward
 .vscode/*
 !.vscode/extensions.json
 .idea
+.backend 
 .DS_Store
 *.suo
 *.ntvs*
