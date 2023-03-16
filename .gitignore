@@ -1,2 +1,3 @@
-#remove backend afterwards
-backend/
+web-portfolio/backend/node_modules/
+web-portfolio/client/node_modules/
+web-portfolio/backend/.env
