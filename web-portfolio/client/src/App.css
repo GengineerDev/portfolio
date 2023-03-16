@@ -15,3 +15,13 @@
   border-radius: 50%; /* makes the element circular */
   overflow: hidden; /* clips any content that extends beyond the circle */
 }
+
+input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: none;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}

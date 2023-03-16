@@ -1,0 +1,20 @@
+.login-form {
+    width: 400px;
+    height: 400px;
+    margin: calc((100vh - 30px)/5.4) auto;
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.login-form img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
