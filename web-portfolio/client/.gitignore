@@ -1,3 +1,6 @@
+#remove backend afterwards
+./backend/
+
 # Logs
 logs
 *.log
@@ -12,11 +15,10 @@ dist
 dist-ssr
 *.local
 
-# Editor directories and files; remove backend afterward
+# Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
-.backend 
 .DS_Store
 *.suo
 *.ntvs*
