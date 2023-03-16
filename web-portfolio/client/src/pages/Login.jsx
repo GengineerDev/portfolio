@@ -8,7 +8,7 @@ function Login() {
         const username = document.querySelector('input[type="text"]').value
         const password = document.querySelector('input[type="password"]').value
     
-        const response = await fetch('/users', {
+        const response = await fetch('/api/users', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password })
