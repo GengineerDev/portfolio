@@ -1,4 +1,5 @@
 import MainButton from './MainButton'
+import '../styles/greeting.css'
 function Greeting() {
     return (
     <div className='container'>

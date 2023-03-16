@@ -1,3 +1,4 @@
+import '../styles/footer.css'
 function Footer() {
     const date = new Date()
     let year = date.getFullYear()

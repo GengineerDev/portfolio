@@ -1,0 +1,12 @@
+footer {
+    background-color: var(--darker-color);
+    color: rgb(220, 220, 220);
+    font-size: 1.4rem;
+    padding: 10px;
+    width: 100%;
+}
+  
+.right {
+    float: right;
+}
+  

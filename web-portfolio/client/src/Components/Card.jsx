@@ -3,6 +3,8 @@ import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import { useState } from 'react';
 
+import '../styles/card.css'
+
 function Card(props) {
     const [showSlideshow, setShowSlideshow] = useState(false)
     const handleImageClick = () => {

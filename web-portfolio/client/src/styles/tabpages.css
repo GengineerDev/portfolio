@@ -1,0 +1,32 @@
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+  
+.tabs button {
+    border: none;
+    background: none;
+    color: #666;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: inherit;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+  
+.tabs button.active {
+    color: var(--darker-color);
+}
+  
+.tab-content {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-top: none;
+    font-size: 18px;
+    display: flex; /* display content horizontally */
+    flex-direction: row; /* set the direction of the flex container to row */
+    overflow-x: auto; /* enable horizontal scrollbar if content exceeds width */
+    white-space: nowrap; /* prevent content from wrapping onto new lines */
+}

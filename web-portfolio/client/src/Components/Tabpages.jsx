@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Card from './Card'
+import '../styles/tabpages.css'
 function Tabpages() {
     const [activeTab, setActiveTab] = useState('Recent Work')
 

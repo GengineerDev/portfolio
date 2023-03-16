@@ -1,0 +1,32 @@
+.container {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr;
+    gap: 5px;
+  }
+  
+.column {
+    padding: 20px;
+}
+  
+#greeting-header {
+    font-size: 4rem;
+}
+  
+.greeting-text {
+    font-size: 2rem;
+    line-height: 2;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+  
+.space-above {
+    margin-top: 4rem;
+}
+  
+
+.circle-image {
+    background-image: url('../assets/Face.jpg');
+    width: 100%;
+    height: 100%;
+    background-size: cover; /* scales the image to cover the entire element */
+    background-position: center; /* centers the image within the element */
+}

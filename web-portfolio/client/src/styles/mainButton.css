@@ -1,0 +1,14 @@
+.flat-button {
+    border: 2px solid var(--darker-color);
+    padding: 10px 40px;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    color: var(--darker-color);
+    background-color: transparent;
+    cursor: pointer;
+}
+  
+.flat-button:hover {
+    background-color: #333; /* dark background color */
+    color: #fff; /* light text color */
+    transition: 0.2s;
+} 
