@@ -8,7 +8,7 @@ function Login() {
             <img src={icon} alt="User Avatar" />
             <input type="text" placeholder="Username" />
             <input type="password" placeholder="Password" />
-            <MainButton>Sign In</MainButton>
+            <MainButton type="special">Sign In</MainButton>
         </div>
     )
 }
