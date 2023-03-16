@@ -1,9 +1,9 @@
-const express = require('express');
-const { getUser } = require('../controllers/userController');
+const express = require('express')
+const { getUser } = require('../controllers/userController')
 
-const router = express.Router();
+const router = express.Router()
 
 // POST request method
-router.post('/', getUser);
+router.post('/', getUser)
 
-module.exports = router;
+module.exports = router
