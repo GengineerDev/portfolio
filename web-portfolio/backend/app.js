@@ -1,7 +1,10 @@
-// app.js
 const express = require('express')
+const cors = require('cors') // import the cors package
 const userRoutes = require('./routes/userRoutes')
 const app = express()
+
+// Enable CORS for all routes
+app.use(cors())
 
 // Middleware
 app.use(express.json())
