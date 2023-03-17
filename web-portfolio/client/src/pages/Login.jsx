@@ -1,6 +1,6 @@
 import icon from '/face_co.svg'
 import MainButton from '../components/MainButton'
-import axios from 'axios'
+import axios from '../axios-config'
 import '../styles/login.css'
 
 function Login() {
