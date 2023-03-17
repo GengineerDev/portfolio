@@ -1,11 +1,13 @@
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
+const connection = require('../config/db')
 
 exports.getUser = async (req, res) => {
   const { username, password } = req.body
   console.log("Got here!")
   try {
-    const user = await User.findOne({ username })
+    const db = connection.useDb('user')
+    const user = await db.collection('user').findOne({ username })
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password)
       if (isMatch) {
