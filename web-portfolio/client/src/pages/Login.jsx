@@ -13,7 +13,6 @@ function Login() {
             const response = await axios.post('/api/users', { username, password })
             const data = response.data
             console.log(data.user)
-            alert("Success!")
             // Redirect user to /admin here
         } catch (err) {
             console.error(err.response.data.message)
@@ -21,7 +20,7 @@ function Login() {
     }
 
     return (
-        <div className="login-form">
+        <div className="login form">
             <img src={icon} alt="User Avatar" />
             <input type="text" placeholder="Username" />
             <input type="password" placeholder="Password" />

@@ -1,0 +1,11 @@
+.admin.form {
+    width: 400px;
+    height: 600px;
+    margin: calc((100vh - 30px)/21) auto;
+    
+}
+
+.admin.container {
+    grid-template-columns: 50% 50%;
+    border-bottom: none;
+}

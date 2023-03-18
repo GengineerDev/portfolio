@@ -2,7 +2,7 @@ import MainButton from './MainButton'
 import '../styles/greeting.css'
 function Greeting() {
     return (
-    <div className='container'>
+    <div className='greeting container gap'>
         <div className="column">
           <div className="circle">
             <div className="circle-image"></div>
