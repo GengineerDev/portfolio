@@ -15,7 +15,7 @@ function Login() {
             console.log(data.user)
             // Redirect user to /admin here
         } catch (err) {
-            console.error(err.response.data.message)
+            alert(err.response.data.message)
         }
     }
 
