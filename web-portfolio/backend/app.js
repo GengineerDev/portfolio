@@ -3,6 +3,7 @@ const cors = require('cors') // import the cors package
 const userRoutes = require('./routes/userRoutes')
 const app = express()
 const session = require('express-session')
+const { redirectLoggedIn } = require('./middlewares/redirectLoggedIn')
 
 // Enable CORS for all routes
 app.use(cors())
@@ -20,6 +21,7 @@ app.use(session({
 
 // Routes
 app.use('/api/users', userRoutes)
+app.use(redirectLoggedIn)
 
 // Error handling middleware
 app.use((err, req, res, next) => {
