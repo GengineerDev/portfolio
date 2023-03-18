@@ -1,13 +1,11 @@
-.container {
-    display: grid;
+.greeting.container {
     grid-template-columns: 0.5fr 2fr 1fr;
-    gap: 5px;
-  }
-  
+}
+
 .column {
     padding: 20px;
 }
-  
+ 
 #greeting-header {
     font-size: 4rem;
 }

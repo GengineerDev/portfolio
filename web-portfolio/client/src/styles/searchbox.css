@@ -1,0 +1,22 @@
+.search-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+#search-box {
+    padding: 8px 40px 8px 16px; 
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #f1f1f1;
+    font-size: 1.6rem;
+    background-image: url('../assets/search.svg'); 
+    background-position: 95% center;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+}
+  
+#search-box:hover {
+    background-color: #e6e6e6;
+}
+  

@@ -16,7 +16,7 @@
   overflow: hidden; /* clips any content that extends beyond the circle */
 }
 
-input {
+input, select {
   width: 80%;
   padding: 10px;
   margin-bottom: 20px;
@@ -35,4 +35,12 @@ input {
   justify-content: center;
   align-items: center;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+  display: grid;
+}
+
+.gap {
+  gap: 5px;
 }
