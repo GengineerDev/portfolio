@@ -8,6 +8,8 @@ import Admin from './pages/Admin'
 
 import './App.css'
 
+import { requireAuth } from './middleware/authMiddleware'
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -17,7 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<><Greeting /><Tabpages /></>} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin" element={<Admin />} requireAuth={requireAuth} />
       </Routes>
       <Footer />
     </Router>
