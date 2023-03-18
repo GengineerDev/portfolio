@@ -11,12 +11,10 @@ exports.getUser = async (req, res) => {
       const isMatch = await bcrypt.compare(password, user.password)
       if (isMatch) {
         // Passwords match
-        res.json({ success: true, user })
         req.session.userId = user._id
-        res.redirect('/admin')
-
         const session = await db.collection('session').insertOne({ userId: user._id })
         const sessionId = session.insertedId
+        res.json({ success: true, user })
 
       } else {
         // Passwords don't match
