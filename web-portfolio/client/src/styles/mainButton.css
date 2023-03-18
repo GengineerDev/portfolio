@@ -7,8 +7,16 @@
     cursor: pointer;
 }
   
-.flat-button:hover {
+.flat-button:not([disabled]):hover {
     background-color: #333; /* dark background color */
     color: #fff; /* light text color */
     transition: 0.2s;
-} 
+  }
+
+.flat-button:disabled {
+    background-color: #ccc; /* set a light gray background color */
+    color: #999; /* set a light gray text color */
+    cursor: not-allowed; /* change the cursor to not-allowed */
+    opacity: 0.5; /* set the opacity to 50% to make it appear disabled */
+}
+  

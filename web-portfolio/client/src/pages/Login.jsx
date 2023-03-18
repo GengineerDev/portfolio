@@ -1,51 +1,51 @@
-import { useState, useEffect } from 'react';
-import icon from '/face_co.svg';
-import MainButton from '../components/MainButton';
-import axios from '../axios-config';
-import '../styles/login.css';
+import { useState, useEffect } from 'react'
+import icon from '/face_co.svg'
+import MainButton from '../components/MainButton'
+import axios from '../axios-config'
+import '../styles/login.css'
 
 function Login() {
-  const MAX_LOGIN_ATTEMPTS = 3;
-  const LOGIN_LOCKOUT_TIME = 5 * 60 * 1000; // 5 minutes in milliseconds
-  const LOGIN_ATTEMPTS_KEY = 'loginAttempts';
-  const LOGIN_LOCKED_UNTIL_KEY = 'loginLockedUntil';
+  const MAX_LOGIN_ATTEMPTS = 3
+  const LOGIN_LOCKOUT_TIME = 5 * 60 * 1000 // 5 minutes in milliseconds
+  const LOGIN_ATTEMPTS_KEY = 'loginAttempts'
+  const LOGIN_LOCKED_UNTIL_KEY = 'loginLockedUntil'
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginAttempts, setLoginAttempts] = useState(Number(localStorage.getItem(LOGIN_ATTEMPTS_KEY)) || 0);
-  const [loginLockedUntil, setLoginLockedUntil] = useState(Number(localStorage.getItem(LOGIN_LOCKED_UNTIL_KEY)) || 0);
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [loginAttempts, setLoginAttempts] = useState(Number(localStorage.getItem(LOGIN_ATTEMPTS_KEY)) || 0)
+  const [loginLockedUntil, setLoginLockedUntil] = useState(Number(localStorage.getItem(LOGIN_LOCKED_UNTIL_KEY)) || 0)
 
-  const isLoginDisabled = loginAttempts >= MAX_LOGIN_ATTEMPTS && Date.now() < loginLockedUntil;
+  const isLoginDisabled = loginAttempts >= MAX_LOGIN_ATTEMPTS && Date.now() < loginLockedUntil
 
   const handleSignIn = async () => {
     try {
-      const response = await axios.post('/api/users', { username, password });
-      const data = response.data;
-      console.log(data.user);
+      const response = await axios.post('/api/users', { username, password })
+      const data = response.data
+      console.log(data.user)
       // Redirect user to /admin here
     } catch (err) {
-      setLoginAttempts(loginAttempts + 1);
-      localStorage.setItem(LOGIN_ATTEMPTS_KEY, loginAttempts + 1);
+      setLoginAttempts(loginAttempts + 1)
+      localStorage.setItem(LOGIN_ATTEMPTS_KEY, loginAttempts + 1)
       if (loginAttempts + 1 >= MAX_LOGIN_ATTEMPTS) {
-        const lockedUntil = Date.now() + LOGIN_LOCKOUT_TIME;
-        setLoginLockedUntil(lockedUntil);
-        localStorage.setItem(LOGIN_LOCKED_UNTIL_KEY, lockedUntil);
+        const lockedUntil = Date.now() + LOGIN_LOCKOUT_TIME
+        setLoginLockedUntil(lockedUntil)
+        localStorage.setItem(LOGIN_LOCKED_UNTIL_KEY, lockedUntil)
       }
-      alert(err.response.data.message);
+      alert(err.response.data.message)
     }
-  };
+  }
 
   useEffect(() => {
     if (isLoginDisabled) {
       const timer = setTimeout(() => {
-        setLoginLockedUntil(0);
-        localStorage.removeItem(LOGIN_ATTEMPTS_KEY);
-        localStorage.removeItem(LOGIN_LOCKED_UNTIL_KEY);
-        setLoginAttempts(0);
-      }, loginLockedUntil - Date.now());
-      return () => clearTimeout(timer);
+        setLoginLockedUntil(0)
+        localStorage.removeItem(LOGIN_ATTEMPTS_KEY)
+        localStorage.removeItem(LOGIN_LOCKED_UNTIL_KEY)
+        setLoginAttempts(0)
+      }, loginLockedUntil - Date.now())
+      return () => clearTimeout(timer)
     }
-  }, [isLoginDisabled, loginLockedUntil]);
+  }, [isLoginDisabled, loginLockedUntil])
 
   return (
     <div className="login form">
@@ -75,7 +75,7 @@ function Login() {
         </p>
       )}
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login
