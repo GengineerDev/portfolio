@@ -2,15 +2,9 @@ import MainButton from '../components/MainButton'
 import Searchbox from '../Components/Searchbox'
 import axios from '../axios-config'
 import '../styles/admin.css'
-import { useNavigate } from 'react-router-dom'
 
-function Admin(props) {
-    const navigate = useNavigate()
 
-    if (!props.requireAuth()) {
-        navigate('/login')
-        return null
-    }
+function Admin() {
 
     return (
         <div className='admin form'>
