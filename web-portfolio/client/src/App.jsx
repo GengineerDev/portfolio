@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<><Greeting /><Tabpages /></>} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<Admin />} requireAuth={requireAuth} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
       <Footer />
     </Router>
