@@ -20,7 +20,7 @@ function Login() {
     }
 
     return (
-        <div className="login-form">
+        <div className="login form">
             <img src={icon} alt="User Avatar" />
             <input type="text" placeholder="Username" />
             <input type="password" placeholder="Password" />
