@@ -4,7 +4,6 @@ const connection = require('../config/db')
 
 exports.getUser = async (req, res) => {
   const { username, password } = req.body
-  console.log("Got here!")
   try {
     const db = connection.useDb('user')
     const user = await db.collection('user').findOne({ username })
@@ -13,6 +12,12 @@ exports.getUser = async (req, res) => {
       if (isMatch) {
         // Passwords match
         res.json({ success: true, user })
+        req.session.userId = user._id
+        res.redirect('/admin')
+
+        const session = await db.collection('session').insertOne({ userId: user._id })
+        const sessionId = session.insertedId
+
       } else {
         // Passwords don't match
         res.status(401).json({ success: false, message: 'Invalid credentials' })
