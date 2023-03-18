@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors') // import the cors package
 const userRoutes = require('./routes/userRoutes')
 const app = express()
+const session = require('express-session')
 
 // Enable CORS for all routes
 app.use(cors())
@@ -17,5 +18,13 @@ app.use((err, req, res, next) => {
   console.error(err)
   res.status(500).json({ success: false, message: 'Server error' })
 })
+
+// express-session middleware
+app.use(session({
+  secret: 'my secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 3600000 } // session cookie expires after 1 hour
+}))
 
 module.exports = app
