@@ -1,4 +1,5 @@
 web-portfolio/backend/node_modules/
 web-portfolio/client/node_modules/
 web-portfolio/backend/.env
+web-portfolio/backend/create-user.js
 node_modules/*
