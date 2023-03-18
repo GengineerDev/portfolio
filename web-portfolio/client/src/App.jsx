@@ -8,7 +8,6 @@ import Admin from './pages/Admin'
 
 import './App.css'
 
-import requireAuth from './middleware/authMiddleware'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
