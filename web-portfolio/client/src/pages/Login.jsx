@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
-import axios from '../axios-config'
 import '../styles/login.css'
-import { authenticateUser } from '../api/auth'
+import { checkAuth, authenticateUser } from '../api/auth'
 import icon from '/face_co.svg'
 import MainButton from '../components/MainButton'
 
@@ -37,6 +36,17 @@ function Login() {
       alert(err.response.data.message)
     }
   }
+
+  useEffect(() => {
+    const redirectIfAuthenticated = async () => {
+      const isAuthenticated = await checkAuth()
+      if (isAuthenticated) {
+        navigate('/admin')
+      }
+    }
+
+    redirectIfAuthenticated()
+  }, [])
 
   useEffect(() => {
     if (isLoginDisabled) {
