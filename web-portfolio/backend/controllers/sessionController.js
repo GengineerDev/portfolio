@@ -12,6 +12,23 @@ exports.createSession = async (req, res) => {
   }
 }
 
+exports.getSession = async (req, res) => {
+  const { userId } = req.session
+  try {
+    const db = connection.useDb('user')
+    const session = await db.collection('session').findOne({ userId })
+    if (session) {
+      res.json({ success: true, session })
+    } else {
+      res.status(404).json({ success: false, message: 'Session not found' })
+    }
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ success: false, message: 'Server error' })
+  }
+}
+
+
 exports.deleteSession = async (req, res) => {
   const { sessionId } = req.body
   try {
