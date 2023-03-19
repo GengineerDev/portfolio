@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
-import icon from '/face_co.svg'
-import MainButton from '../components/MainButton'
+import { useNavigate } from "react-router-dom"
 import axios from '../axios-config'
 import '../styles/login.css'
-import { useNavigate } from "react-router-dom"
+import { authenticateUser } from '../api/auth'
+import icon from '/face_co.svg'
+import MainButton from '../components/MainButton'
 
 function Login() {
   const navigate = useNavigate()
@@ -22,9 +23,8 @@ function Login() {
 
   const handleSignIn = async () => {
     try {
-      const response = await axios.post('/api/users', { username, password })
-      const data = response.data
-      console.log(data.user)
+      const user = await authenticateUser(username, password)
+      console.log(user)
       navigate('/admin')
     } catch (err) {
       setLoginAttempts(loginAttempts + 1)
