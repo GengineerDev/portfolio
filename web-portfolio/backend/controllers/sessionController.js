@@ -1,4 +1,5 @@
 const connection = require('../config/db')
+const { ObjectId } = require('mongodb')
 
 exports.createSession = async (req, res) => {
   const { userId } = req.session
@@ -13,10 +14,15 @@ exports.createSession = async (req, res) => {
 }
 
 exports.getSession = async (req, res) => {
-  const { userId } = req.session
+  const sessions = req.sessionStore.sessions
+  const sessionKeys = Object.keys(sessions)
+  const userId = JSON.parse(sessions[sessionKeys]).userId
+
+
   try {
     const db = connection.useDb('user')
-    const session = await db.collection('session').findOne({ userId })
+    const session = await db.collection('session').findOne({ userId: new ObjectId(userId) })
+    console.log(session)
     if (session) {
       res.json({ success: true, session })
     } else {
