@@ -1,12 +1,11 @@
 const connection = require('../config/db')
 
 exports.createSession = async (req, res) => {
-  const { userId } = req.body
+  const { userId } = req.session
   try {
     const db = connection.useDb('user')
     const session = await db.collection('session').insertOne({ userId })
     const sessionId = session.insertedId
-    res.json({ success: true, sessionId })
   } catch (err) {
     console.error(err)
     res.status(500).json({ success: false, message: 'Server error' })
