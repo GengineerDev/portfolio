@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const connection = require('../config/db')
+const sessionController = require('../controllers/sessionController')
 
 exports.getUser = async (req, res) => {
   const { username, password } = req.body
@@ -12,8 +13,7 @@ exports.getUser = async (req, res) => {
       if (isMatch) {
         // Passwords match
         req.session.userId = user._id
-        const session = await db.collection('session').insertOne({ userId: user._id })
-        const sessionId = session.insertedId
+        sessionController.createSession(req, res, next)
         res.json({ success: true, user })
 
       } else {
