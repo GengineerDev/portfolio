@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<><Greeting /><Tabpages /></>} />
         <Route path="/login" element={<Login />} />
-        <PrivateRoute path="/admin" component={Admin} />
+        <Route path="/admin" element={<PrivateRoute><Admin /></PrivateRoute>} />
       </Routes>
       <Footer />
     </Router>

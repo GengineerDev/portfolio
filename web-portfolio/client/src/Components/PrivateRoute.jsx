@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Navigate, Routes } from 'react-router-dom'
 import axios from '../axios-config'
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
 
@@ -24,21 +24,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   }, [])
 
   if (loading) {
-    return <div>Loading...</div>
+    return <p>Loading...</p>
   }
 
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        isAuthenticated ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-        )
-      }
-    />
-  )
+  return isAuthenticated ? children : <Navigate to="/login" />
 }
 
 export default PrivateRoute
