@@ -13,7 +13,7 @@ exports.getUser = async (req, res) => {
       if (isMatch) {
         // Passwords match
         req.session.userId = user._id
-        sessionController.createSession(req, res, next)
+        sessionController.createSession(req, res)
         res.json({ success: true, user })
 
       } else {
