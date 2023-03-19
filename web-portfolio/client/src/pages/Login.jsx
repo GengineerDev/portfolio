@@ -3,8 +3,11 @@ import icon from '/face_co.svg'
 import MainButton from '../components/MainButton'
 import axios from '../axios-config'
 import '../styles/login.css'
+import { useNavigate } from "react-router-dom"
 
 function Login() {
+  const navigate = useNavigate()
+
   const MAX_LOGIN_ATTEMPTS = 3
   const LOGIN_LOCKOUT_TIME = 5 * 60 * 1000 // 5 minutes in milliseconds
   const LOGIN_ATTEMPTS_KEY = 'loginAttempts'
@@ -22,7 +25,7 @@ function Login() {
       const response = await axios.post('/api/users', { username, password })
       const data = response.data
       console.log(data.user)
-      // Redirect user to /admin here
+      navigate('/admin')
     } catch (err) {
       setLoginAttempts(loginAttempts + 1)
       localStorage.setItem(LOGIN_ATTEMPTS_KEY, loginAttempts + 1)
