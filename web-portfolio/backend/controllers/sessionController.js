@@ -3,20 +3,14 @@ const bcrypt = require('bcrypt')
 const { ObjectId } = require('mongodb')
 
 async function findSession(userId, sessionId) {
-  console.log("findSession!")
   const db = connection.useDb('user')
   const sessionData = await db.collection('session').find({ userId: new ObjectId(userId) }).toArray()
-
   for (let i = 0; i < sessionData.length; i++) {
-    console.log(i)
     const isMatch = await bcrypt.compare(sessionId, sessionData[i].sessionID)
     if (isMatch) {
-      console.log("There's a match!")
       return sessionData[i]
     }
   }
-
-  console.log("No match!")
   return null
 }
 
@@ -35,19 +29,18 @@ exports.createSession = async (req, res) => {
 
 exports.getSession = async (req, res) => {
   const sessions = req.sessionStore.sessions
-  console.log(sessions)
   if (!sessions || Object.keys(sessions).length === 0) {
-    return null
+    return res.status(404).json({ success: false, message: 'No session' }) // error
   }
   
   const sessionKeys = Object.keys(sessions)
   const userId = JSON.parse(sessions[sessionKeys[0]]).userId
-  console.log(userId)
   
   try {
     const session = await findSession(userId, sessionKeys[0])
     if (session) {
       res.json({ success: true, session })
+
     } else {
       res.status(404).json({ success: false, message: 'Session not found' })
     }
@@ -59,17 +52,25 @@ exports.getSession = async (req, res) => {
 }
 
 exports.deleteSession = async (req, res) => {
-  const { userId } = req.session
   const sessions = req.sessionStore.sessions
   const sessionKeys = Object.keys(sessions)
-  console.log("deleteSession!")
+  const userId = JSON.parse(sessions[sessionKeys[0]]).userId
+  
   try {
     const session = await findSession(userId, sessionKeys[0])
     if (session) {
       const db = connection.useDb('user')
       const result = await db.collection('session').deleteOne({ _id: session._id })
       if (result.deletedCount === 1) {
-        res.json({ success: true })
+        // delete the session key from req.sessionStore.sessions
+        req.sessionStore.destroy(sessionKeys[0], function(err) {
+          if (err) {
+            console.error(err)
+            res.status(500).json({ success: false, message: 'Server error' })
+          } else {
+            res.json({ success: true })
+          }
+        })
       } else {
         res.status(404).json({ success: false, message: 'Session not found' })
       }
