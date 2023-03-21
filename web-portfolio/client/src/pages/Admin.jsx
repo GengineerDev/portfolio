@@ -15,9 +15,10 @@ function Admin() {
  
                 <select name="category" id="category-search">
                     <option value="default">--Choose--</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
+                    <option value="recent-work">Recent Work</option>
+                    <option value="organizations">Organizations</option>
+                    <option value="competitions">Competitions</option>
+                    <option value="initiatives">Initiatives</option>
                 </select>
 
 
