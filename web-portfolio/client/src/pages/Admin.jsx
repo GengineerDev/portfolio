@@ -1,6 +1,5 @@
 import MainButton from '../components/MainButton'
 import Searchbox from '../Components/Searchbox'
-import axios from '../axios-config'
 import '../styles/admin.css'
 
 
