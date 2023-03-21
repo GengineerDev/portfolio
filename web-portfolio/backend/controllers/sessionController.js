@@ -11,10 +11,12 @@ async function findSession(userId, sessionId) {
     console.log(i)
     const isMatch = await bcrypt.compare(sessionId, sessionData[i].sessionID)
     if (isMatch) {
+      console.log("There's a match!")
       return sessionData[i]
     }
   }
 
+  console.log("No match!")
   return null
 }
 
