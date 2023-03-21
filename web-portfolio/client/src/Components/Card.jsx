@@ -1,7 +1,7 @@
-import Modal from '@material-ui/core/Modal';
-import { Slide } from 'react-slideshow-image';
+import Modal from '@material-ui/core/Modal'
+import { Slide } from 'react-slideshow-image'
 import 'react-slideshow-image/dist/styles.css'
-import { useState } from 'react';
+import { useState } from 'react'
 
 import '../styles/card.css'
 
@@ -40,7 +40,7 @@ function Card(props) {
           url: 'https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80',
           caption: 'Slide 3'
         },
-      ];
+      ]
 
     return (
         <div className='card'>
