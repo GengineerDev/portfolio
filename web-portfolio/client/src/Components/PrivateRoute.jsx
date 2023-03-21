@@ -8,13 +8,13 @@ const PrivateRoute = ({ children }) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchAuth = async () => {
-      const isAuthenticated = await checkAuth()
-      setIsAuthenticated(isAuthenticated)
+    const delayAuthStatus = async () => {
+      await new Promise(resolve => setTimeout(resolve, 3000)) // Wait for 3 seconds
+      const authenticated = await checkAuth()
+      setIsAuthenticated(authenticated)
       setLoading(false)
     }
-
-    fetchAuth()
+    delayAuthStatus()
   }, [])
 
   if (loading) {
