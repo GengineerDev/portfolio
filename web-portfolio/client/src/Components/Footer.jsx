@@ -1,14 +1,24 @@
 import '../styles/footer.css'
 import useAuth from '../hooks/useAuth'
+import axios from '../axios-config'
 
 function Footer() {
     const date = new Date()
     let year = date.getFullYear()
     const isAuthenticated = useAuth()
 
-    const handleLogout = () => {
-        // handle logout logic here
+    const handleLogout = async () => {
+        try {
+          await axios.delete('/api/sessions')
+          console.log("handleLogout!")
+          // Redirect the user to the login page
+          window.location.href = '/login'
+        } catch (err) {
+          console.error(err)
+          // Handle error
+        }
     }
+      
 
     return (
         <footer>
