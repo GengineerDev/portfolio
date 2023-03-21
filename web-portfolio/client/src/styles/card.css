@@ -11,6 +11,7 @@
   
 .card-image {
     height: 70%;
+    cursor: pointer;
 }
   
 .card-image img {
