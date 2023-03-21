@@ -17,7 +17,12 @@ const PrivateRoute = ({ children }) => {
   }, [])
 
   if (loading) {
-    return <p>Loading...</p>
+    return (
+      <div className="loading-container">
+        <p className="loading-text">Loading...</p>
+        <div className="spinner"></div>
+      </div>
+    )
   }
 
   return isAuthenticated ? children : <Navigate to="/login" />

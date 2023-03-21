@@ -1,0 +1,27 @@
+.loading-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 30px);
+}
+  
+.loading-text {
+    font-size: 2.4rem;
+}
+  
+.spinner {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid #999;
+    border-top-color: #666;
+    animation: spinner 0.8s linear infinite;
+}
+  
+@keyframes spinner {
+    to {
+      transform: rotate(360deg);
+    }
+}
+  
+  
