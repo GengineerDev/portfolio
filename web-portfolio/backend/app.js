@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors') 
 const userRoutes = require('./routes/userRoutes')
 const sessionRoutes = require('./routes/sessionRoutes')
+const entryRoutes = require('./routes/entryRoutes')
 const app = express()
 const session = require('express-session')
 
@@ -23,6 +24,7 @@ app.use(session({
 // Routes
 app.use('/api/users', userRoutes)
 app.use('/api/sessions', sessionRoutes)
+app.use('/api/entries', entryRoutes)
 
 // Error handling middleware
 app.use((err, req, res, next) => {
