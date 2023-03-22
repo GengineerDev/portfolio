@@ -1,8 +1,21 @@
 .admin.form {
     width: 400px;
     height: 600px;
-    margin: calc((100vh - 30px)/21) auto;
+    margin: calc((100vh - 30px)/21) auto;   
     
+}
+
+.modal.form {
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    display: block;
+    padding: 2rem;
+    width: 500px;
+    height: 350px;
+}
+
+.modal.form label {
+    margin-right: 1rem;
 }
 
 .admin.container {
