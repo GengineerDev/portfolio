@@ -2,8 +2,9 @@ const connection = require('../config/db')
 const bcrypt = require('bcrypt')
 const { ObjectId } = require('mongodb')
 
+const db = connection.useDb('user')
+
 async function findSession(userId, sessionId) {
-  const db = connection.useDb('user')
   const sessionData = await db.collection('session').find({ userId: new ObjectId(userId) }).toArray()
   for (let i = 0; i < sessionData.length; i++) {
     const isMatch = await bcrypt.compare(sessionId, sessionData[i].sessionID)
@@ -17,7 +18,6 @@ async function findSession(userId, sessionId) {
 exports.createSession = async (req, res) => {
   const { userId } = req.session
   try {
-    const db = connection.useDb('user')
     const salt = await bcrypt.genSalt(10)
     const hashedSessionID = await bcrypt.hash(req.sessionID, salt)
     const session = await db.collection('session').insertOne({ sessionID: hashedSessionID, userId: userId })
@@ -59,7 +59,7 @@ exports.deleteSession = async (req, res) => {
   try {
     const session = await findSession(userId, sessionKeys[0])
     if (session) {
-      const db = connection.useDb('user')
+      
       const result = await db.collection('session').deleteOne({ _id: session._id })
       if (result.deletedCount === 1) {
         // delete the session key from req.sessionStore.sessions
