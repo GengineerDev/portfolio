@@ -1,13 +1,22 @@
 import MainButton from '../components/MainButton'
-import Searchbox from '../Components/Searchbox'
+import Searchbox from '../components/Searchbox'
+import Modal from '@material-ui/core/Modal'
+import { useState } from 'react'
 import '../styles/admin.css'
 
 
 function Admin() {
+    const [showForm, setShowForm] = useState(false)
+
+    console.log(showForm)
+    const handleClick = () => {
+        setShowForm(true)
+        console.log("Clicked!")
+    }
 
     return (
         <div className='admin form'>
-            <MainButton>ADD AN ENTRY</MainButton>
+            <MainButton type="special" handleClick={handleClick}>ADD AN ENTRY</MainButton>
             <br /><br /><br />
             <h1>--- or ---</h1>
             <br /><br /><br />
@@ -15,9 +24,10 @@ function Admin() {
  
                 <select name="category" id="category-search">
                     <option value="default">--Choose--</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
+                    <option value="recent-work">Recent Work</option>
+                    <option value="organizations">Organizations</option>
+                    <option value="competitions">Competitions</option>
+                    <option value="initiatives">Initiatives</option>
                 </select>
 
 
@@ -36,7 +46,33 @@ function Admin() {
                 <MainButton>EDIT</MainButton>
                 <MainButton>DELETE</MainButton>
             </div>
+            {showForm && <Modal
+                onClose={() => setShowForm(false)}
+                open={showForm}
+                style={{
+                    position: 'absolute',
+                    backgroundColor: '#dedfe0',
+                    boxShadow: '2px solid black',
+                    height:'350px',
+                    width: '500px',
+                    margin: 'auto',
+                    borderRadius: '50px'
+                }}
+            >
+                <div className="modal form">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" placeholder="Title here" />
+                    <label for="thumbnail">Thumbnail:</label>
+                    <input type="file" id="thumbnail" name="thumbnail" />
+                    <label for="caption">Caption:</label>
+                    <input type="text" id="title" name="title" placeholder="Caption here" />
+                    <label for="images">Images:</label>
+                    <input type="file" id="images" name="images" multiple />
+                    <div className='right'><MainButton>PUBLISH</MainButton></div>
+                    
+                </div>
 
+                </Modal>}
 
         </div>
         

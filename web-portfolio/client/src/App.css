@@ -44,3 +44,7 @@ input, select {
 .gap {
   gap: 5px;
 }
+
+.right {
+  float: right;
+}
