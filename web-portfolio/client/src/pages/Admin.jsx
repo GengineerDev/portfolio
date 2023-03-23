@@ -3,12 +3,40 @@ import Searchbox from '../components/Searchbox'
 import Modal from '@material-ui/core/Modal'
 import { useState } from 'react'
 import '../styles/admin.css'
+import axios from '../axios-config'
 
 
 function Admin() {
     const [showForm, setShowForm] = useState(false)
 
-    console.log(showForm)
+    const publishEntry = async () => {
+        const title = document.getElementById('title').value
+        const thumbnail = document.getElementById('thumbnail').files[0]
+        const caption = document.getElementById('caption').value
+        const images = document.getElementById('images').files
+      
+        const formData = new FormData()
+        formData.append('title', title)
+        formData.append('thumbnail', thumbnail)
+        formData.append('caption', caption)
+        for (let i = 0; i < images.length; i++) {
+          formData.append('images', images[i])
+        }
+      
+        try {
+          const response = await axios.post('/api/entries', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          console.log(response.data)
+          alert("Success!")
+        } catch (error) {
+          console.error(error)
+        }
+      }
+
+
     const handleClick = () => {
         setShowForm(true)
         console.log("Clicked!")
