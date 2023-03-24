@@ -13,6 +13,8 @@ function Admin() {
   const [activeCategory, setActiveCategory] = useState('Recent Work')
   const categories = ['Recent Work', 'Organizations', 'Competitions', 'Initiatives']
   const [entries, setEntries] = useState([])
+  const [searchQuery, setSearchQuery] = useState('');
+
 
   useEffect(() => {
     axios.get(`/api/entries/${activeCategory}`)
@@ -38,22 +40,24 @@ function Admin() {
               options={categories}
             />
 
-            <Searchbox />
+            <Searchbox setSearchQuery={setSearchQuery} />
+
 
           </div>
           
           <select name="listbox" size='10' onChange={(e) => setDisabled(e.target.value === '')}>
-            {entries
-              .filter((entry) => entry.category === activeCategory)
-              .map((entry) => (
-                <option key={entry._id} value={entry.title}>
-                  {entry.title}
-                </option>
-              ))
-            }
-            {entries.filter((entry) => entry.category === activeCategory).length === 0 && (
-              <option disabled>No entries found in this category</option>
-            )}
+          {entries
+            .filter((entry) => entry.category === activeCategory && entry.title.toLowerCase().includes(searchQuery.toLowerCase()))
+            .map((entry) => (
+              <option key={entry._id} value={entry.title}>
+                {entry.title}
+              </option>
+            ))
+          }
+          {entries.filter((entry) => entry.category === activeCategory && entry.title.toLowerCase().includes(searchQuery.toLowerCase())).length === 0 && (
+            <option disabled>No entries found in this category</option>
+          )}
+
           </select>
 
           <div className='admin container gap'>
