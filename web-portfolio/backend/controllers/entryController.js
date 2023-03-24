@@ -47,11 +47,9 @@ exports.createEntry = async (req, res) => {
 
 exports.getEntry = async (req, res) => {
   const category = req.params.category
-  console.log(category)
 
   try {
     const entries = await Entry.find({ category })
-    console.log(entries)
     res.json(entries)
   } catch (err) {
     console.error(err)

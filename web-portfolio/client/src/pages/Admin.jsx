@@ -1,58 +1,27 @@
 import MainButton from '../components/MainButton'
 import Searchbox from '../components/Searchbox'
+import SelectCategory from '../components/SelectCategory'
+import ModalForm from '../components/ModalForm'
 import Modal from '@material-ui/core/Modal'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import '../styles/admin.css'
 import axios from '../axios-config'
 
-
 function Admin() {
   const [showForm, setShowForm] = useState(false)
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(true)
+  const [activeCategory, setActiveCategory] = useState('Recent Work')
+  const categories = ['Recent Work', 'Organizations', 'Competitions', 'Initiatives']
+  const [entries, setEntries] = useState([])
 
-  const publishEntry = async () => {
-      setDisabled(true)
-      const category = document.getElementById('select-category').value
-      const title = document.getElementById('title').value
-      const thumbnail = document.getElementById('thumbnail').files[0]
-      const caption = document.getElementById('caption').value
-      const images = document.getElementById('images').files
-
-      if (images.length === 10) {
-        alert("You can only upload up to 10 images only.")
-        setDisabled(true)
-        return null
-      }
-    
-      const formData = new FormData()
-      formData.append('category', category)
-      formData.append('title', title)
-      formData.append('caption', caption)
-      formData.append('thumbnail', thumbnail)
-    
-      for (let i = 0; i < images.length; i++) {
-        formData.append('images', images[i])
-      }
-    
-      try {
-        const response = await axios.post('/api/entries', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-        console.log(response.data)
-        alert("Success!")
-        setDisabled(false)
-      } catch (error) {
-        console.error(error)
-        alert("The server encountered a problem. Make sure that you accomplished all fields or you uploaded until 10 images only.")
-        setDisabled(false)
-      }
-    }      
+  useEffect(() => {
+    axios.get(`/api/entries/${activeCategory}`)
+      .then(res => setEntries(res.data))
+      .catch(err => console.error(err))
+  }, [activeCategory])
 
   const handleClick = () => {
-      setShowForm(true)
-      console.log("Clicked!")
+    setShowForm(true)
   }
 
   return (
@@ -62,33 +31,40 @@ function Admin() {
           <h1>--- or ---</h1>
           <br /><br /><br />
           <div className='admin container'>
+            <SelectCategory
+              name="category-search"
+              id="category-search"
+              onChange={(e) => setActiveCategory(e.target.value)}
+              options={categories}
+            />
 
-              <select name="category" id="category-search">
-                  <option value="default">--Choose--</option>
-                  <option value="recent-work">Recent Work</option>
-                  <option value="organizations">Organizations</option>
-                  <option value="competitions">Competitions</option>
-                  <option value="initiatives">Initiatives</option>
-              </select>
-
-
-              <Searchbox />
+            <Searchbox />
 
           </div>
-          <select name="listbox" size='10'>
-              <option value="Merceders"> Merceders </option>  
-              <option value="BMW"> BMW </option>  
-              <option value="Jaguar"> Jaguar </option>  
-              <option value="Lamborghini"> Lamborghini </option>  
-              <option value="Ferrari"> Ferrari </option>  
-              <option value="Ford"> Ford </option>  
+          
+          <select name="listbox" size='10' onChange={(e) => setDisabled(e.target.value === '')}>
+            {entries
+              .filter((entry) => entry.category === activeCategory)
+              .map((entry) => (
+                <option key={entry._id} value={entry.title}>
+                  {entry.title}
+                </option>
+              ))
+            }
+            {entries.filter((entry) => entry.category === activeCategory).length === 0 && (
+              <option disabled>No entries found in this category</option>
+            )}
           </select>
+
           <div className='admin container gap'>
-              <MainButton>EDIT</MainButton>
-              <MainButton>DELETE</MainButton>
+              <MainButton type="special" disabled={disabled}>EDIT</MainButton>
+              <MainButton type="special" disabled={disabled}>DELETE</MainButton>
           </div>
           {showForm && <Modal
-              onClose={() => setShowForm(false)}
+              onClose={() => {
+                setDisabled(true)
+                setShowForm(false)
+              }}
               open={showForm}
               style={{
                   position: 'absolute',
@@ -100,27 +76,8 @@ function Admin() {
                   borderRadius: '50px'
               }}
           >
-              <div className="modal form">
-              <label htmlFor="select-category">Category:</label>
-                <select name="select-category" id="select-category">
-                    <option value="Recent Work">Recent Work</option>
-                    <option value="organizations">Organizations</option>
-                    <option value="Competitions">Competitions</option>
-                    <option value="Initiatives">Initiatives</option>
-                </select>
-                  <label htmlFor="title">Title:</label>
-                  <input type="text" id="title" name="title" placeholder="Title here" />
-                  <label htmlFor="thumbnail">Thumbnail:</label>
-                  <input type="file" id="thumbnail" name="thumbnail" />
-                  <label htmlFor="caption">Caption:</label>
-                  <input type="text" id="caption" name="caption" placeholder="Caption here" />
-                  <label htmlFor="images">Images:</label>
-                  <input type="file" id="images" name="images" multiple />
-                  <div className='right'><MainButton type="special" handleClick={publishEntry} disabled={disabled} disabledText={disabled}>PUBLISH</MainButton></div>
-                  
-              </div>
-
-              </Modal>}
+            <ModalForm categories={categories}/>
+          </Modal>}
 
       </div>
         
