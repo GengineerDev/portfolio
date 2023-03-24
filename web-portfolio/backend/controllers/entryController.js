@@ -46,14 +46,17 @@ exports.createEntry = async (req, res) => {
   
 
 exports.getEntry = async (req, res) => {
-    // const { id } = req.params
+  const category = req.params.category
+  console.log(category)
 
-    // try {
-    //   const entry = await Entry.findById(id)
-    //   res.send(entry)
-    // } catch (err) {
-    //   res.status(400).send(err)
-    // }
+  try {
+    const entries = await Entry.find({ category })
+    console.log(entries)
+    res.json(entries)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ message: 'Server Error' })
+  }
 }
 
 exports.deleteEntry = async (req, res) => {

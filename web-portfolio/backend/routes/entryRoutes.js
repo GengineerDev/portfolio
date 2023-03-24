@@ -8,7 +8,7 @@ router.post('/', upload.fields([
   { name: 'thumbnail', maxCount: 1 },
   { name: 'images', maxCount: 10 },
 ]), entryController.createEntry)
-router.get('/', entryController.getEntry)
+router.get('/:category', entryController.getEntry)
 router.delete('/', entryController.deleteEntry)
 
 module.exports = router
