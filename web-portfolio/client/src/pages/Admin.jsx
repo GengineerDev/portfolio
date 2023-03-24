@@ -17,6 +17,12 @@ function Admin() {
       const thumbnail = document.getElementById('thumbnail').files[0]
       const caption = document.getElementById('caption').value
       const images = document.getElementById('images').files
+
+      if (images.length === 10) {
+        alert("You can only upload up to 10 images only.")
+        setDisabled(true)
+        return null
+      }
     
       const formData = new FormData()
       formData.append('category', category)
@@ -39,7 +45,7 @@ function Admin() {
         setDisabled(false)
       } catch (error) {
         console.error(error)
-        alert("The server encountered a problem. Make sure that you accomplished all fields.")
+        alert("The server encountered a problem. Make sure that you accomplished all fields or you uploaded until 10 images only.")
         setDisabled(false)
       }
     }      
