@@ -13,8 +13,8 @@ function Admin() {
   const [activeCategory, setActiveCategory] = useState('Recent Work')
   const categories = ['Recent Work', 'Organizations', 'Competitions', 'Initiatives']
   const [entries, setEntries] = useState([])
-  const [searchQuery, setSearchQuery] = useState('');
-
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedEntry, setSelectedEntry] = useState(null)
 
   useEffect(() => {
     axios.get(`/api/entries/${activeCategory}`)
@@ -25,6 +25,18 @@ function Admin() {
   const handleClick = () => {
     setShowForm(true)
   }
+
+  const handleDelete = () => {
+    if (window.confirm("Are you sure you want to delete this entry?")) {
+      axios.delete(`/api/entries/${selectedEntry}`)
+        .then(res => {
+          console.log(res)
+          alert("Success!")
+          setEntries(entries.filter(entry => entry._id !== selectedEntry))
+        })
+        .catch(err => console.error(err))
+    }
+  } 
 
   return (
       <div className='admin form'>
@@ -45,11 +57,14 @@ function Admin() {
 
           </div>
           
-          <select name="listbox" size='10' onChange={(e) => setDisabled(e.target.value === '')}>
+          <select name="listbox" size='10' onChange={(e) => {
+            setSelectedEntry(e.target.value)
+            setDisabled(e.target.value === '')
+          }}>
           {entries
             .filter((entry) => entry.category === activeCategory && entry.title.toLowerCase().includes(searchQuery.toLowerCase()))
             .map((entry) => (
-              <option key={entry._id} value={entry.title}>
+              <option key={entry._id} value={entry._id}>
                 {entry.title}
               </option>
             ))
@@ -62,13 +77,10 @@ function Admin() {
 
           <div className='admin container gap'>
               <MainButton type="special" disabled={disabled}>EDIT</MainButton>
-              <MainButton type="special" disabled={disabled}>DELETE</MainButton>
+              <MainButton type="special" handleClick={handleDelete} disabled={disabled}>DELETE</MainButton>
           </div>
           {showForm && <Modal
-              onClose={() => {
-                setDisabled(true)
-                setShowForm(false)
-              }}
+              onClose={() => {setShowForm(false)}}
               open={showForm}
               style={{
                   position: 'absolute',
