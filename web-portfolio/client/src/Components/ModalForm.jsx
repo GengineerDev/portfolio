@@ -64,10 +64,15 @@ function ModalForm(props) {
             <input type="text" id="title" name="title" placeholder="Title here" />
             <label htmlFor="thumbnail">Thumbnail:</label>
             <input type="file" id="thumbnail" name="thumbnail" />
+            <a href='#' target='_blank' className='right'>View Image</a>
             <label htmlFor="caption">Caption:</label>
             <input type="text" id="caption" name="caption" placeholder="Caption here" />
             <label htmlFor="images">Images:</label>
             <input type="file" id="images" name="images" multiple />
+            <div className='admin container gap'>
+                <select></select>
+                <a href='#' target='_blank' className='right'>View Image</a>
+            </div>
             <div className='right'><MainButton type="special" handleClick={publishEntry} disabled={disabled} disabledText={disabled}>PUBLISH</MainButton></div>            
         </div>
     )      
