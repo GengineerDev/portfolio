@@ -16,6 +16,7 @@ function Admin() {
   const [entries, setEntries] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedEntry, setSelectedEntry] = useState(null)
+  const [selectedEntryObj, setSelectedEntryObj] = useState(null)
 
   useEffect(() => {
     axios.get(`/api/entries/${activeCategory}`)
@@ -28,6 +29,9 @@ function Admin() {
   }
 
   const handleEditClick = () => {
+    const selectedEntryObj = entries.find((entry) => entry._id === selectedEntry)
+    setSelectedEntryObj(selectedEntryObj)
+    console.log(selectedEntryObj)
     setShowForm(true)
     setShowEdit(true)
   }
@@ -50,7 +54,7 @@ function Admin() {
         })
         .catch(err => console.error(err))
     }
-  } 
+  }
 
   return (
       <div className='admin form'>
@@ -104,7 +108,7 @@ function Admin() {
                   borderRadius: '50px'
               }}
           >
-            <ModalForm categories={categories} edit={showEdit}/>
+            <ModalForm categories={categories} edit={showEdit} entry={selectedEntryObj}/>
           </Modal>}
 
       </div>
