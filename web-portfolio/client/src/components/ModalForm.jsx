@@ -2,6 +2,7 @@ import axios from '../axios-config'
 import SelectCategory from './SelectCategory'
 import MainButton from './MainButton'
 import { useState } from 'react'
+import '../styles/modalForm.css'
 
 function ModalForm(props) {
     const [disabled, setDisabled] = useState(false)
@@ -53,27 +54,40 @@ function ModalForm(props) {
         }
     }
     return (
-        <div className="modal form">
+        <div className={`modal form ${props.edit ? 'edit' : ''}`}>
             <label htmlFor="select-category">Category:</label>
             <SelectCategory
                 name="select-category"
                 id="select-category"
                 options={props.categories}
             />
+            <br />
             <label htmlFor="title">Title:</label>
             <input type="text" id="title" name="title" placeholder="Title here" />
+            <br />
             <label htmlFor="thumbnail">Thumbnail:</label>
             <input type="file" id="thumbnail" name="thumbnail" />
-            <a href='#' target='_blank' className='right'>View Image</a>
+            {props.edit && <p><a href='#' target='_blank' className='right'>View Original Image</a></p>}
+            {props.edit && <br />}
+            <br />
             <label htmlFor="caption">Caption:</label>
             <input type="text" id="caption" name="caption" placeholder="Caption here" />
+            <br />
             <label htmlFor="images">Images:</label>
             <input type="file" id="images" name="images" multiple />
-            <div className='admin container gap'>
-                <select></select>
-                <a href='#' target='_blank' className='right'>View Image</a>
-            </div>
-            <div className='right'><MainButton type="special" handleClick={publishEntry} disabled={disabled} disabledText={disabled}>PUBLISH</MainButton></div>            
+            {props.edit && <center><div className='modal container gap'>
+                <div>
+                    <select name="listbox" size='3'></select>
+                    <p><a href='#' target='_blank' id="view-selected-img">View Selected Image</a></p>
+                </div>
+                
+                <div className='block-style'>
+                    <MainButton type="special">ADD</MainButton>
+                    <MainButton type="special">EDIT</MainButton>
+                    <MainButton type="special">DELETE</MainButton>
+                </div>
+            </div></center>}
+            <div id='publish-button'><MainButton type="special" handleClick={publishEntry} disabled={disabled} disabledText={disabled}>PUBLISH</MainButton></div>            
         </div>
     )      
 }

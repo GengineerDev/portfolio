@@ -98,8 +98,8 @@ function Admin() {
                   position: 'absolute',
                   backgroundColor: '#dedfe0',
                   boxShadow: '2px solid black',
-                  height:'400px',
-                  width: '600px',
+                  height:`${showEdit ? '600px' : '400px'}`,
+                  width: `${showEdit ? '700px' : '600px'}`,
                   margin: 'auto',
                   borderRadius: '50px'
               }}
