@@ -44,7 +44,7 @@ function Admin() {
           <br /><br /><br />
           <h1>--- or ---</h1>
           <br /><br /><br />
-          <div className='admin container'>
+          <div className='admin container adjustToRight'>
             <SelectCategory
               name="category-search"
               id="category-search"
@@ -53,8 +53,6 @@ function Admin() {
             />
 
             <Searchbox setSearchQuery={setSearchQuery} />
-
-
           </div>
           
           <select name="listbox" size='10' onChange={(e) => {
