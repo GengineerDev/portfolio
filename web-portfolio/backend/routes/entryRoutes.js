@@ -9,6 +9,6 @@ router.post('/', upload.fields([
   { name: 'images', maxCount: 10 },
 ]), entryController.createEntry)
 router.get('/:category', entryController.getEntry)
-router.delete('/', entryController.deleteEntry)
+router.delete('/:id', entryController.deleteEntry)
 
 module.exports = router
