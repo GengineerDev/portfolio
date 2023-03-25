@@ -22,3 +22,7 @@
     grid-template-columns: 50% 50%;
     border-bottom: none;
 }
+
+.adjustToRight {
+    margin-left: 3.3rem;
+}
