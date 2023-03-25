@@ -62,11 +62,11 @@ function ModalForm(props) {
                 name="select-category"
                 id="select-category"
                 options={props.categories}
-                value={props.entry.category}
+                value={props.edit && props.entry.category}
             />
             <br />
             <label htmlFor="title">Title:</label>
-            <input type="text" id="title" name="title" defaultValue={props.edit && props.entry.title} placeholder="Title here" />
+            <input type="text" id="title" name="title" defaultValue={props.edit ? props.entry.title : null} placeholder="Title here" />
             <br />
             <label htmlFor="thumbnail">Thumbnail:</label>
             <input type="file" id="thumbnail" name="thumbnail" />
@@ -74,7 +74,7 @@ function ModalForm(props) {
             {props.edit && <br />}
             <br />
             <label htmlFor="caption">Caption:</label>
-            <input type="text" id="caption" name="caption" placeholder="Caption here" defaultValue={props.edit && props.entry.caption} />
+            <input type="text" id="caption" name="caption" placeholder="Caption here" defaultValue={props.edit ? props.entry.caption : null} />
             <br />
             <label htmlFor="images">Images:</label>
             {!props.edit && <input type="file" id="images" name="images" multiple />}
