@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt')
-const User = require('../models/user')
 const connection = require('../config/db')
 const sessionController = require('../controllers/sessionController')
 
