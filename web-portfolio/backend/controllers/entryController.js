@@ -1,13 +1,10 @@
 const connection = require('../config/db')
-const db = connection.useDb('portfolio')
 const Entry = require('../models/entry')
 const cloudinary = require('../config/cloudinaryConfig')
-const upload = require('../config/multerConfig')
 
 exports.createEntry = async (req, res) => {
   const { category, title, caption } = req.body
-  console.log(req.files.thumbnail)
-  console.log(req.files.images)
+
   // Handle single file upload for the thumbnail
   const thumbnail = req.files.thumbnail[0]
   const thumbnailPath = thumbnail.path
@@ -15,7 +12,6 @@ exports.createEntry = async (req, res) => {
   // Handle multiple file upload for the images
   const images = req.files.images
   const imagePaths = images.map(image => image.path)
-  console.log(imagePaths)
 
   try {
     // Upload the thumbnail and images to Cloudinary
@@ -58,12 +54,12 @@ exports.getEntry = async (req, res) => {
 }
 
 exports.deleteEntry = async (req, res) => {
-    // const { id } = req.params
+  const entryId = req.params.id
 
-    // try {
-    //   const entry = await Entry.findByIdAndDelete(id)
-    //   res.send(entry)
-    // } catch (err) {
-    //   res.status(400).send(err)
-    // }
+  try {
+    const entry = await Entry.findByIdAndDelete(entryId)
+    res.send(entry)
+  } catch (err) {
+    res.status(400).send(err)
+  }
 }
