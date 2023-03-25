@@ -6,6 +6,7 @@ import '../styles/modalForm.css'
 
 function ModalForm(props) {
     const [disabled, setDisabled] = useState(false)
+    const [disabledModalBtns, setDisabledModalBtns] = useState(true)
     const publishEntry = async () => {
         setDisabled(true)
         const category = document.getElementById('select-category').value
@@ -53,6 +54,7 @@ function ModalForm(props) {
           setDisabled(false)
         }
     }
+    console.log(disabledModalBtns)
     return (
         <div className={`modal form ${props.edit ? 'edit' : ''}`}>
             <label htmlFor="select-category">Category:</label>
@@ -60,31 +62,38 @@ function ModalForm(props) {
                 name="select-category"
                 id="select-category"
                 options={props.categories}
+                value={props.entry.category}
             />
             <br />
             <label htmlFor="title">Title:</label>
-            <input type="text" id="title" name="title" placeholder="Title here" />
+            <input type="text" id="title" name="title" defaultValue={props.edit && props.entry.title} placeholder="Title here" />
             <br />
             <label htmlFor="thumbnail">Thumbnail:</label>
             <input type="file" id="thumbnail" name="thumbnail" />
-            {props.edit && <p><a href='#' target='_blank' className='right'>View Original Image</a></p>}
+            {props.edit && <p><a href={props.entry.thumbnail} target='_blank' className='right'>View Original Image</a></p>}
             {props.edit && <br />}
             <br />
             <label htmlFor="caption">Caption:</label>
-            <input type="text" id="caption" name="caption" placeholder="Caption here" />
+            <input type="text" id="caption" name="caption" placeholder="Caption here" defaultValue={props.edit && props.entry.caption} />
             <br />
             <label htmlFor="images">Images:</label>
-            <input type="file" id="images" name="images" multiple />
+            {!props.edit && <input type="file" id="images" name="images" multiple />}
             {props.edit && <center><div className='modal container gap'>
                 <div>
-                    <select name="listbox" size='3'></select>
+                    <select name="listbox" size='3' onChange={(e) => setDisabledModalBtns(e.target.value === '')}>
+                    {props.entry.images.map((image, index) => (
+                        <option key={index} value={image}>
+                            {image}
+                        </option>
+                    ))}
+                    </select>
                     <p><a href='#' target='_blank' id="view-selected-img">View Selected Image</a></p>
                 </div>
                 
                 <div className='block-style'>
                     <MainButton type="special">ADD</MainButton>
-                    <MainButton type="special">EDIT</MainButton>
-                    <MainButton type="special">DELETE</MainButton>
+                    <MainButton type="special" disabled={disabledModalBtns}>EDIT</MainButton>
+                    <MainButton type="special" disabled={disabledModalBtns}>DELETE</MainButton>
                 </div>
             </div></center>}
             <div id='publish-button'><MainButton type="special" handleClick={publishEntry} disabled={disabled} disabledText={disabled}>PUBLISH</MainButton></div>            
