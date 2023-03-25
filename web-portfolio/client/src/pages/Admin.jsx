@@ -26,6 +26,13 @@ function Admin() {
     setShowForm(true)
   }
 
+  const handleCloseModal = () => {
+    setShowForm(false)
+    axios.get(`/api/entries/${activeCategory}`)
+      .then(res => setEntries(res.data))
+      .catch(err => console.error(err))
+  }
+
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this entry?")) {
       axios.delete(`/api/entries/${selectedEntry}`)
@@ -78,7 +85,7 @@ function Admin() {
               <MainButton type="special" handleClick={handleDelete} disabled={disabled}>DELETE</MainButton>
           </div>
           {showForm && <Modal
-              onClose={() => {setShowForm(false)}}
+              onClose={handleCloseModal}
               open={showForm}
               style={{
                   position: 'absolute',
