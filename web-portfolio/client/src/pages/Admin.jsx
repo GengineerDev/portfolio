@@ -9,6 +9,7 @@ import axios from '../axios-config'
 
 function Admin() {
   const [showForm, setShowForm] = useState(false)
+  const [showEdit, setShowEdit] = useState(false)
   const [disabled, setDisabled] = useState(true)
   const [activeCategory, setActiveCategory] = useState('Recent Work')
   const categories = ['Recent Work', 'Organizations', 'Competitions', 'Initiatives']
@@ -22,12 +23,18 @@ function Admin() {
       .catch(err => console.error(err))
   }, [activeCategory])
 
-  const handleClick = () => {
+  const handleAddClick = () => {
     setShowForm(true)
+  }
+
+  const handleEditClick = () => {
+    setShowForm(true)
+    setShowEdit(true)
   }
 
   const handleCloseModal = () => {
     setShowForm(false)
+    setShowEdit(false)
     axios.get(`/api/entries/${activeCategory}`)
       .then(res => setEntries(res.data))
       .catch(err => console.error(err))
@@ -47,7 +54,7 @@ function Admin() {
 
   return (
       <div className='admin form'>
-          <MainButton type="special" handleClick={handleClick}>ADD AN ENTRY</MainButton>
+          <MainButton type="special" handleClick={handleAddClick}>ADD AN ENTRY</MainButton>
           <br /><br /><br />
           <h1>--- or ---</h1>
           <br /><br /><br />
@@ -81,7 +88,7 @@ function Admin() {
           </select>
 
           <div className='admin container gap'>
-              <MainButton type="special" disabled={disabled}>EDIT</MainButton>
+              <MainButton type="special" disabled={disabled} handleClick={handleEditClick}>EDIT</MainButton>
               <MainButton type="special" handleClick={handleDelete} disabled={disabled}>DELETE</MainButton>
           </div>
           {showForm && <Modal
@@ -97,7 +104,7 @@ function Admin() {
                   borderRadius: '50px'
               }}
           >
-            <ModalForm categories={categories}/>
+            <ModalForm categories={categories} edit={showEdit}/>
           </Modal>}
 
       </div>
