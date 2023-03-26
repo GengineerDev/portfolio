@@ -1,12 +1,45 @@
 import axios from '../axios-config'
 import SelectCategory from './SelectCategory'
 import MainButton from './MainButton'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import '../styles/modalForm.css'
 
 function ModalForm(props) {
     const [disabled, setDisabled] = useState(false)
     const [disabledModalBtns, setDisabledModalBtns] = useState(true)
+    const [selectedValue, setSelectedValue] = useState('')
+    const [selectedIndex, setSelectedIndex] = useState(-1) 
+    const [images, setImages] = useState(props.entry.images)
+    
+    const handleAddClick = () => {
+        const imageUrl = prompt("Enter the URL of the image:");
+        if (imageUrl) {
+          setImages([...images, imageUrl])
+        }
+    }
+
+    const handleEditClick = () => {
+        const imageUrl = prompt("Enter the new URL of the image:", selectedValue)
+        if (imageUrl) {
+            const newImages = [...images]
+            newImages[selectedIndex] = imageUrl
+            setImages(newImages)
+            setSelectedValue(imageUrl)
+        }
+    }
+
+    const handleDeleteClick = () => {
+        if (window.confirm("Are you sure you want to delete this entry?")) {
+            const newImages = [...images]
+            newImages.splice(selectedIndex, 1)
+            setImages(newImages)
+            setSelectedValue('')
+            setSelectedIndex(-1)
+            // setDisabledModalBtns(true)
+        }
+        
+    }
+    
     const publishEntry = async () => {
         setDisabled(true)
         const category = document.getElementById('select-category').value
@@ -54,6 +87,25 @@ function ModalForm(props) {
           setDisabled(false)
         }
     }
+
+    useEffect(() => {
+        const linkEl = document.querySelector('#view-selected-img')
+        linkEl.href = selectedValue
+    }, [selectedValue])
+    
+    const handleSelectChange = (e) => {
+        setSelectedValue(e.target.value)
+        setDisabledModalBtns(e.target.value === '')
+        setSelectedIndex(e.target.selectedIndex)
+    }
+
+    const handleLinkClick = (e) => {
+        if (!selectedValue) {
+            e.preventDefault()
+            alert('Please select an image.')
+        }
+    }
+
     return (
         <div className={`modal form ${props.edit ? 'edit' : ''}`}>
             <label htmlFor="select-category">Category:</label>
@@ -79,20 +131,20 @@ function ModalForm(props) {
             {!props.edit && <input type="file" id="images" name="images" multiple />}
             {props.edit && <center><div className='modal container gap'>
                 <div>
-                    <select name="listbox" size='3' onChange={(e) => setDisabledModalBtns(e.target.value === '')}>
-                    {props.entry.images.map((image, index) => (
+                    <select name="listbox" size='3' onChange={handleSelectChange}>
+                    {images.map((image, index) => (
                         <option key={index} value={image}>
                             {image}
                         </option>
                     ))}
                     </select>
-                    <p><a href='#' target='_blank' id="view-selected-img">View Selected Image</a></p>
+                    <p><a href={selectedValue} target='_blank' id="view-selected-img" onClick={handleLinkClick}>View Selected Image</a></p>
                 </div>
                 
                 <div className='block-style'>
-                    <MainButton type="special">ADD</MainButton>
-                    <MainButton type="special" disabled={disabledModalBtns}>EDIT</MainButton>
-                    <MainButton type="special" disabled={disabledModalBtns}>DELETE</MainButton>
+                    <MainButton type="special" handleClick={handleAddClick}>ADD</MainButton>
+                    <MainButton type="special" handleClick={handleEditClick} disabled={disabledModalBtns}>EDIT</MainButton>
+                    <MainButton type="special" handleClick={handleDeleteClick} disabled={disabledModalBtns}>DELETE</MainButton>
                 </div>
             </div></center>}
             <div id='publish-button'><MainButton type="special" handleClick={publishEntry} disabled={disabled} disabledText={disabled}>PUBLISH</MainButton></div>            
