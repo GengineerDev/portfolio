@@ -54,7 +54,6 @@ function ModalForm(props) {
           setDisabled(false)
         }
     }
-    console.log(disabledModalBtns)
     return (
         <div className={`modal form ${props.edit ? 'edit' : ''}`}>
             <label htmlFor="select-category">Category:</label>
@@ -62,7 +61,7 @@ function ModalForm(props) {
                 name="select-category"
                 id="select-category"
                 options={props.categories}
-                value={props.edit && props.entry.category}
+                defaultValue={props.edit && props.entry.category}
             />
             <br />
             <label htmlFor="title">Title:</label>
